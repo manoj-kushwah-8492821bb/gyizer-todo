@@ -28,18 +28,26 @@ const App = () => {
   // handle form submit
   const onSubmit = (event) => {
     event.preventDefault();
+    const isTitleChanged = editData && formValues.title !== editData.title;
+
     // Check if the title already exists in the task list
     const taskExists = taskLists.some(
       (task) => task.title === formValues.title
     );
-    if (taskExists) {
-      toast.error("Task has already added");
+    if (!editData && taskExists) {
+      toast.error("Task already exists with this title");
     } else {
       let updatedTasks;
       if (editData) {
-        updatedTasks = taskLists.map((task) =>
-          task.title === editData.title ? formValues : task
-        );
+        if (isTitleChanged && taskExists) {
+          toast.error("Task already exists with this title");
+          return;
+        } else {
+          updatedTasks = taskLists.map((task) =>
+            task.title === editData.title ? formValues : task
+          );
+        }
+
       } else {
         updatedTasks = [...taskLists, formValues];
       }
@@ -92,9 +100,8 @@ const App = () => {
           />
         </div>
         <button
-          className={`rounded-lg bg-secondary border ${
-            editData && "max-h-16 sm:max-h-20"
-          } px-5 sm:px-8 py-3 border-primary flex justify-center items-center`}
+          className={`rounded-lg bg-secondary border ${editData && "max-h-16 sm:max-h-20"
+            } px-5 sm:px-8 py-3 border-primary flex justify-center items-center`}
           type="submit"
         >
           {editData ? "Update" : <FaPlus className="text-xl" />}
@@ -103,7 +110,7 @@ const App = () => {
 
       {/* shows the task by map methods */}
       <div className="container mx-auto">
-        <section className="sm:border-2 sm:min-h-80 sm:h-80 border-primary sm:bg-[#242320] sm:rounded-lg">
+        <section className="sm:border-2 border-primary sm:bg-[#242320] sm:rounded-lg">
           {taskLists?.length > 0 ? (
             <div className="sm:p-10 md:p-14 px-4 grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {taskLists?.map((item, index) => {
@@ -153,7 +160,7 @@ const App = () => {
               })}
             </div>
           ) : (
-            <div className="flex flex-col h-full justify-center items-center ">
+            <div className="flex flex-col py-24 h-full justify-center items-center ">
               {/* If No Tasks Here */}
               <div className="h-0.5 bg-primary w-16" />
               <h2 className="text-2xl font-bold text-center py-3">No Tasks</h2>
