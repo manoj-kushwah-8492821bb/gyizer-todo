@@ -82,7 +82,7 @@ const App = () => {
       {/* Create a form in which title and value store */}
       <form
         onSubmit={onSubmit}
-        className="max-w-2xl px-4 gap-2 py-10 sm:py-16 flex mx-auto"
+        className="max-w-2xl px-2 gap-2 py-10 sm:py-16 flex mx-auto"
       >
         <div className="w-full space-y-2">
           <InputField
@@ -101,10 +101,10 @@ const App = () => {
         </div>
         <button
           className={`rounded-lg bg-secondary border ${editData && "max-h-16 sm:max-h-20"
-            } px-5 sm:px-8 py-3 border-primary flex justify-center items-center`}
+            } px-6 sm:px-8 py-3 border-primary flex justify-center items-center`}
           type="submit"
         >
-          {editData ? "Update" : <FaPlus className="text-xl" />}
+          {editData ? "Update" : <FaPlus className="text-2xl text-primary" />}
         </button>
       </form>
 
@@ -112,7 +112,7 @@ const App = () => {
       <div className="container mx-auto">
         <section className="sm:border-2 border-primary sm:bg-[#242320] sm:rounded-lg">
           {taskLists?.length > 0 ? (
-            <div className="sm:p-10 md:p-14 px-4 grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <div className="sm:p-10 md:p-14 px-2 grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {taskLists?.map((item, index) => {
                 return (
                   <div className="rounded-lg flex items-center py-2 px-4 border-2 border-primary">
@@ -129,7 +129,7 @@ const App = () => {
                       {showMenu == index ? (
                         <>
                           <IconBtn
-                            event={() => setRemoveData(item)}
+                            event={() => { setRemoveData(item) }}
                             icon={<FaTrash />}
                           />
                           <IconBtn
