@@ -160,7 +160,7 @@ const App = () => {
               })}
             </div>
           ) : (
-            <div className="flex flex-col py-24 h-full justify-center items-center ">
+            <div className="flex flex-col sm:py-24 h-full justify-center items-center ">
               {/* If No Tasks Here */}
               <div className="h-0.5 bg-primary w-16" />
               <h2 className="text-2xl font-bold text-center py-3">No Tasks</h2>
