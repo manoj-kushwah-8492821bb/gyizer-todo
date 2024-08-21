@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #1b1a17;
+  color: white;
+}
+.bg-secondary {
+  background-color: #242320;
+}
+.text-secondary {
+  color: #f0e3ca;
+}
+.border-primary {
+  border-color: #ff8303;
+}
+.bg-primary {
+  background-color: #ff8303;
+}
+.bg-modal {
+  background: rgba(0, 0, 0, 0.1.5); /* Slightly transparent black background */
+  backdrop-filter: blur(4px); /* Adjust the blur intensity as needed */
+  -webkit-backdrop-filter: blur(4px); /* For Safari support */
+}
