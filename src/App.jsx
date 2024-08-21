@@ -82,7 +82,7 @@ const App = () => {
       {/* Create a form in which title and value store */}
       <form
         onSubmit={onSubmit}
-        className="max-w-2xl px-2 gap-2 py-10 sm:py-16 flex mx-auto"
+        className="w-full sm:max-w-2xl px-2 gap-2 py-10 sm:py-16 flex mx-auto"
       >
         <div className="w-full space-y-2">
           <InputField
