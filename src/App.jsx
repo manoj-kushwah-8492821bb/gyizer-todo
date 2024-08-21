@@ -4,7 +4,7 @@ import { MdClose } from "react-icons/md";
 import IconBtn from "./components/IconBtn";
 import { AiOutlineInfo } from "react-icons/ai";
 import InputField from "./components/InputField";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { FaPen, FaPlus, FaTrash } from "react-icons/fa";
 import ConfrimationModal from "./components/ConfirmModal";
 
@@ -114,47 +114,62 @@ const App = () => {
           {taskLists?.length > 0 ? (
             <div className="sm:p-10 md:p-14 px-2 grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {taskLists?.map((item, index) => {
+                const renderAction = () => {
+                  return <>
+                    <IconBtn
+                      event={() => { setRemoveData(item) }}
+                      icon={<FaTrash />}
+                    />
+                    <IconBtn
+                      event={() => {
+                        setEditData(item);
+                        setFormValues(item);
+                      }}
+                      icon={<FaPen />}
+                    />
+                  </>
+                }
                 return (
-                  <div className="rounded-lg flex items-center py-2 px-4 border-2 border-primary">
-                    <div className="w-full">
-                      <h3 className="text-lg sm:text-xl max-w-32 truncate">
-                        {item.title}
-                      </h3>
-                      <div className="text-sm text-secondary max-w-48 truncate">
-                        {item.about}
+                  <div key={item.title}>
+                    <div className="rounded-lg flex items-center py-2 px-4 border-2 border-primary">
+                      <div className="w-full">
+                        <h3 className="text-lg sm:text-xl max-w-32 truncate">
+                          {item.title}
+                        </h3>
+                        <div className="text-sm text-secondary max-w-48 truncate">
+                          {item.about}
+                        </div>
+                      </div>
+                      {/* Action */}
+                      <div className="flex gap-2">
+                        {showMenu == index ? (
+                          <>
+                            <div div className="hidden sm:flex gap-2">
+                              {renderAction()}
+                            </div>
+                            <IconBtn
+                              event={() => {
+                                setShowMenu(null);
+                                setEditData(null);
+                                setFormValues({ title: "", about: "" });
+                              }}
+                              icon={<MdClose />}
+                            />
+                          </>
+                        ) : (
+                          <IconBtn
+                            event={() => setShowMenu(index)}
+                            icon={<AiOutlineInfo />}
+                          />
+                        )}
                       </div>
                     </div>
-                    {/* Action */}
-                    <div className="flex gap-2">
-                      {showMenu == index ? (
-                        <>
-                          <IconBtn
-                            event={() => { setRemoveData(item) }}
-                            icon={<FaTrash />}
-                          />
-                          <IconBtn
-                            event={() => {
-                              setEditData(item);
-                              setFormValues(item);
-                            }}
-                            icon={<FaPen />}
-                          />
-                          <IconBtn
-                            event={() => {
-                              setShowMenu(null);
-                              setEditData(null);
-                              setFormValues({ title: "", about: "" });
-                            }}
-                            icon={<MdClose />}
-                          />
-                        </>
-                      ) : (
-                        <IconBtn
-                          event={() => setShowMenu(index)}
-                          icon={<AiOutlineInfo />}
-                        />
-                      )}
-                    </div>
+
+                    {/* for mobile device */}
+                    {showMenu == index &&
+                      <div className="flex sm:hidden p-2.5 justify-end gap-2">
+                        {renderAction()}
+                      </div>}
                   </div>
                 );
               })}
